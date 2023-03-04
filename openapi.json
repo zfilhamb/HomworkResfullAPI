@@ -1,0 +1,122 @@
+{
+  "openapi": "3.0.3",
+  "option":{
+    "info": {
+      "title": "Movies API 3.0",
+      "description": "Movies API",
+      "contact": {
+        "email": "developer@gmail.com"
+      },
+      "version": "1.0.11"
+    }
+  },
+ 
+  "servers": [
+    {
+      "url": "https://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/movies": {
+      "get": {
+        "summary": "find all movies",
+        "tags": [
+          "movies"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfull find movies",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": "$ref:'#/components/schemas/Movie'"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "creat new movie",
+        "tags": [
+          "movies"
+        ],
+        "parameters": [
+          {
+            "name": "movieId",
+            "in": "path",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfull find movies by id",
+            "content": {
+              "application/json": {
+                "schema": "$ref:'#/components/schemas/Movie'"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/movies/{movieId}": {
+      "get": {
+        "summary": "find by id",
+        "tags": [
+          "movies"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfull find movies by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": "$ref:'#/components/schemas/Movie'"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "Components": {
+    "schemas": {
+      "Movie": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "examples": 1
+          },
+          "title": {
+            "type": "string",
+            "examples": "Reckless"
+          },
+          "genres": {
+            "type": "string",
+            "examples": "Comedy"
+          },
+          "year": {
+            "type": "integer",
+            "examples": 2001
+          }
+        }
+      },
+      "Success": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "examples": "successfully"
+          }
+        }
+      }
+    }
+  }
+}

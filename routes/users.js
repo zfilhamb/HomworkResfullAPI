@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 const salt = bcrypt.genSaltSync(10);
 const jwt = require("jsonwebtoken")
 const secretKey = "koderahasia"
-const {authentication} = require("../middlewares/auth.js")
+
 
 router.get("/login", (req, res, next) => {
     const {email, password} = req.body;
@@ -35,7 +35,7 @@ router.get("/login", (req, res, next) => {
                     role: data.role,
                     is_admin: data.is_admin
                 }, secretKey)
-                console.log(access_token)
+                
                 res.status(200).json({
                     id:data.id,
                     email:data.email,
@@ -71,8 +71,5 @@ router.post("/register", (req, res, next) => {
         })
     })
 });
-
-router.use(authentication)
-router.use("/", moviesRouter);
 
 module.exports = router;  

@@ -4,13 +4,12 @@ const secretKey = "koderahasia";
 const pool = require("../config.js")
 
 function authentication(req, res, next) {
-    console.log(req.headers)
     const {access_token} = req.headers;
 
     if(access_token) {
         try {
             const decode = jwt.verify(access_token, secretKey);
-            const {id, email,} = decode
+            const {id, email} = decode
             const findUser =`
                 SELECT
                     *
@@ -28,12 +27,11 @@ function authentication(req, res, next) {
                     req.loggedUser = {
                         id: user.id,
                         email: user.email,
+                        role: user.role
                     }
                     next();
                 }
             })
-
-            console.log(decode)
         } catch (err) {
             next({name:"JWTerror"})
         }
@@ -45,7 +43,7 @@ function authentication(req, res, next) {
 function authorization(req, res, next) {
     const{is_admin, role, email, id } = req.loggedUser;
 
-    if(is_admin){
+    if(role === "engineer"){
 
         next();
     } else {

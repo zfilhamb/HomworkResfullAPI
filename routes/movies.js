@@ -5,7 +5,7 @@ const {authorization} = require("../middlewares/auth.js")
 const defaultLimit = 10;
 const defaultPage = 1;
 
-router.get("/movies", authorization, (req, res, next) =>{
+router.get("/movies",authorization, (req, res, next) =>{
     const {limit, page}= req.query;
     let resultLimit = limit ? +limit : defaultLimit;
     let resultPage = page ? +page : defaultPage;
@@ -30,8 +30,7 @@ router.get("/movies/:id", (req, res, next) =>{
     }) 
 });
 
-router.post("/movies", authorization, (req, res) =>{
-    console.log(req.body);
+router.post("/movies", (req, res,) =>{
     const {id, title, genres, year} = req.body;
     const insertQuery =`
         INSERT INTO movies (id, title, genres, year)

@@ -54,7 +54,7 @@ router.put("/movies/:id", (req, res) =>{
         UPDATE movies
         SET title = $1,
             year = $2
-        WHERE ID = $3
+        WHERE id = $3
     `
     pool.query(updateQuery, [title, year, id], (err, response) =>{
         if(err) {
@@ -67,7 +67,7 @@ router.put("/movies/:id", (req, res) =>{
 }); 
 
 router.delete("/movies/:id", (req, res) =>{
-    const {id} = req.params;
+    const {id} = req.params; 
     const findQuery =`
         SELECT 
             *
